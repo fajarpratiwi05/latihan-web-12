@@ -8,10 +8,18 @@
   </head>
   <body>
     <h1>Tambah Data Testimoni</h1>
+    <a href="lat 1201.html">list data testimoni</a>
+    <div class="alert alert-success" role="alert" id="inf1">
+        A simple success alert—check it out!
+      </div>
+
+      <div class="alert alert-danger" role="alert" id="inf2">
+        A simple danger alert—check it out!
+      </div>
+
     <span id="newTesti">
         <form id="fTesti" method="post">
-            <input type="hidden" name="NIM" value="2401010028">
-            <input type="hidden" name="ACT" value="stored">
+            <input type="hidden" name="NIM" value="2401010423">
             <input type="hidden" name="ACT" value="stored">
 
             <div class="form-group">
@@ -34,7 +42,41 @@
       
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script >
+    <script>    
+        var nim="2401010423"
+        var urlAPi="https://apimhstiki.ptov.my.id/"
+        var urlREAD= urlAPi+"testi"
+
+        $("#inf1").hide()
+        $("#inf2").hide()
+
+        $("#fTesti"). on ('submit', function(ev){
+            ev.preventDefault()
+            let  dtTesti= $(this).serialize()
+            console.log(urlREAD)
+            $.ajax({
+            url:urlREAD , 
+            method: 'POST',
+            dataType : 'json',
+            data: dtTesti ,
+            success: function(dta){
+                if(dta.error==0){
+                    console.log ("Data berhasil di simpan")
+                    $("#inf1").show()
+                    $("#inf1").html ("Data berhasil di simpan")
+                }else{
+                    console.log ("Terjadi kegagagalan menyimpan data di server")
+                    $("#inf2").show()
+                    $("#inf2").html ("Terjadi kegagagalan menyimpan data di server")
+                }
+            } ,
+            error : function(){
+                console.log ("Terjadi kesalahan dalam pengiriman data")
+                $("#inf2").show()
+                $("#inf2").html ("Terjadi kesalahan dalam pengiriman data")
+            } 
+        })
+    })
 
     </script>
 
